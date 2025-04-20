@@ -1,4 +1,3 @@
-#CS3361 Final Project
 #Max Heitzman :: R11626572
 #Phase 2: Parallel Computation
 
