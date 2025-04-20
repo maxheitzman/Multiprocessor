@@ -4,85 +4,110 @@ This project implements a two-phase simulation of cellular behavior based on a m
 
 ---
 
+## Versions
+
+- `Multiprocessor.py` – Final version using multiprocessing for parallel computation
+- `multiprocessor_serial.py` – Phase 1: serial-only version used to test and validate matrix evolution rules
+
+---
+
 ## Features
 
-- Simulates 100 iterations of a cellular automaton matrix
-- Phase 1: Serial evolution logic
-- Phase 2: Parallel logic using Python's multiprocessing module
-- Accepts flexible command-line arguments for input, output, and core count
-- Supports wrap-around edge behavior (toroidal matrix)
+- Simulates 100 iterations of a symbolic matrix
+- Serial and parallel versions available
+- Accepts command-line arguments for input, output, and process count
+- Wrap-around logic for neighbor detection (toroidal grid)
+- Rule logic based on:
+  - Fibonacci numbers
+  - Prime numbers
+  - Powers of two
 
 ---
 
 ## Symbols and Cell States
 
-Each symbol in the matrix represents a cell state:
+Each cell is represented by a character:
 
-- O – Healthy O Cell (+3)  
-- o – Weakened O Cell (+1)  
-- X – Healthy X Cell (-3)  
-- x – Weakened X Cell (-1)  
-- . – Dead Cell (0)  
-
-Cell evolution depends on the sum of neighbor scores and their relationship to:
-- Fibonacci numbers
-- Prime numbers
-- Powers of two
+- `O` – Healthy O Cell (+3)  
+- `o` – Weakened O Cell (+1)  
+- `X` – Healthy X Cell (-3)  
+- `x` – Weakened X Cell (-1)  
+- `.` – Dead Cell (0)
 
 ---
 
 ## How to Run
 
-Basic usage:
+Example (parallel version):
 
-    python3 Multiprocessor.py -i six_by_six_part1/time_step_0.dat -o six_by_six_part2/time_step_100.dat -p 4
+```
+python3 Multiprocessor.py -i six_by_six_part1/time_step_0.dat -o six_by_six_part2/time_step_100.dat -p 4
+```
+
+Example (serial version):
+
+```
+python3 multiprocessor_serial.py -i six_by_six_part1/time_step_0.dat -o six_by_six_part2/time_step_100.dat
+```
 
 ### Command-Line Arguments
 
-- `-i <input_file>`: Required — starting matrix file path  
-- `-o <output_file>`: Required — output file to write after 100 iterations  
-- `-p <process_count>`: Optional — number of parallel processes to use (default is 1)
+- `-i <input_file>`: Required. Path to input `.dat` file  
+- `-o <output_file>`: Required. Path to output `.dat` file  
+- `-p <process_count>`: Optional. Number of processes (defaults to 1 in parallel version)
 
 ---
 
 ## File Structure
 
-    Multiprocessor/
-    ├── Multiprocessor.py
-    ├── README.md
-    ├── six_by_six_part1/
-    │   ├── time_step_0.dat
-    │   ├── ...
-    │   └── time_step_49.dat
-    └── six_by_six_part2/
-        ├── time_step_50.dat
-        ├── ...
-        └── time_step_100.dat (output)
+```
+Multiprocessor/
+├── Multiprocessor.py
+├── multiprocessor_serial.py
+├── README.md
+├── six_by_six_part1/
+│   ├── time_step_0.dat
+│   ├── ...
+│   └── time_step_49.dat
+└── six_by_six_part2/
+    ├── time_step_50.dat
+    ├── ...
+    └── time_step_100.dat
+```
 
 ---
 
 ## Output Format
 
-- Terminal output:
+- Console output always begins with:
 
-      Project :: R11626572
+  ```
+  Project :: R11626572
+  ```
 
-- Output file will contain the final matrix after 100 iterations
-- Format must match the input:
-  - Each row on a new line
-  - No added spacing or formatting
-  - Only characters: O, o, X, x, or .
+- Output file contains the matrix after 100 iterations  
+- Output must match input formatting:
+  - One row per line
+  - No extra whitespace
+  - Only cell characters (O, o, X, x, .)
 
 ---
 
 ## Notes
 
-- Cells wrap around at the edges (neighbors wrap)
-- All logic is implemented using standard Python 3 libraries
-- Includes helper checks for:
+- Wrapping is applied in all directions (toroidal grid)
+- The simulator uses only built-in Python libraries
+- Includes helper functions for:
   - Fibonacci detection
-  - Prime number detection
+  - Prime number check
   - Power of two detection
+
+---
+
+## Requirements
+
+- Python 3.13 or later  
+- Terminal or IDE that supports command-line execution
 
 ---
 
