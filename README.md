@@ -6,17 +6,17 @@ This project implements a two-phase simulation of cellular behavior based on a m
 
 ## Features
 
-- Handles 100 iterations of a cellular matrix simulation  
-- Phase 1: Serial computation of matrix state evolution  
-- Phase 2: Parallel computation using Python’s multiprocessing module  
-- Accepts flexible command-line arguments for input/output and number of processes  
-- Supports wrap-around neighbor calculation  
+- Simulates 100 iterations of a cellular automaton matrix
+- Phase 1: Serial evolution logic
+- Phase 2: Parallel logic using Python's multiprocessing module
+- Accepts flexible command-line arguments for input, output, and core count
+- Supports wrap-around edge behavior (toroidal matrix)
 
 ---
 
 ## Symbols and Cell States
 
-Each character in the input matrix represents a cell state:
+Each symbol in the matrix represents a cell state:
 
 - O – Healthy O Cell (+3)  
 - o – Weakened O Cell (+1)  
@@ -24,24 +24,24 @@ Each character in the input matrix represents a cell state:
 - x – Weakened X Cell (-1)  
 - . – Dead Cell (0)  
 
-The simulation evolves based on neighbor scoring and logic related to:
-- Fibonacci sequences  
-- Prime numbers  
-- Powers of two  
+Cell evolution depends on the sum of neighbor scores and their relationship to:
+- Fibonacci numbers
+- Prime numbers
+- Powers of two
 
 ---
 
 ## How to Run
 
-Example usage:
+Basic usage:
 
-    python3 Multiprocessor.py -i six_by_six_v2/time_step_0.dat -o six_by_six_v2/time_step_100.dat -p 4
+    python3 Multiprocessor.py -i six_by_six_part1/time_step_0.dat -o six_by_six_part2/time_step_100.dat -p 4
 
-### Command-Line Arguments:
+### Command-Line Arguments
 
-- `-i <input_file>`: Required. Input matrix file path  
-- `-o <output_file>`: Required. Output file to write the final matrix  
-- `-p <process_count>`: Optional. Number of parallel processes (defaults to 1)  
+- `-i <input_file>`: Required — starting matrix file path  
+- `-o <output_file>`: Required — output file to write after 100 iterations  
+- `-p <process_count>`: Optional — number of parallel processes to use (default is 1)
 
 ---
 
@@ -50,40 +50,44 @@ Example usage:
     Multiprocessor/
     ├── Multiprocessor.py
     ├── README.md
-    └── six_by_six_v2/
-        ├── time_step_0.dat
-        ├── time_step_1.dat
+    ├── six_by_six_part1/
+    │   ├── time_step_0.dat
+    │   ├── ...
+    │   └── time_step_49.dat
+    └── six_by_six_part2/
+        ├── time_step_50.dat
         ├── ...
-        └── time_step_100.dat (generated)
+        └── time_step_100.dat (output)
 
 ---
 
-## Output
+## Output Format
 
-- First line printed to terminal:
+- Terminal output:
 
       Project :: R11626572
 
-- Output file will contain the final matrix after 100 iterations  
-- The output format must match the input:
-  - No extra spacing  
-  - One row per line  
-  - Characters only (O, o, X, x, or .)  
+- Output file will contain the final matrix after 100 iterations
+- Format must match the input:
+  - Each row on a new line
+  - No added spacing or formatting
+  - Only characters: O, o, X, x, or .
 
 ---
 
 ## Notes
 
-- Wrapping is supported: cells at the edge wrap around and always have 8 neighbors  
-- Only standard Python libraries are used — no external dependencies  
-- Includes helper functions for:
-  - Fibonacci detection  
-  - Prime number check  
-  - Power of two check  
+- Cells wrap around at the edges (neighbors wrap)
+- All logic is implemented using standard Python 3 libraries
+- Includes helper checks for:
+  - Fibonacci detection
+  - Prime number detection
+  - Power of two detection
 
 ---
 
 ## Requirements
 
-- Python 3.13+  
-- Unix-like terminal or IDE that supports command-line arguments  
+- Python 3.13 or later
+- Terminal or IDE that supports command-line arguments
+
