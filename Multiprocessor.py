@@ -1,4 +1,4 @@
-#Max Heitzman :: R11626572
+#Max Heitzman 
 #Phase 2: Parallel Computation
 
 import argparse
